@@ -1,0 +1,88 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 23, 2018, 11:39:29 AM
+    Author     : JOHNY
+*/
+body{
+    background-color: #e5e5e5;
+}
+.mt-6{
+    padding-top: 4.5rem
+}
+.bd-navbar
+{
+    min-height:4rem;
+    box-shadow:0 .5rem 1rem rgb(0,255,0,.05),inset 0 -1px 0 rgba(0,255,0,.1)
+}
+.bd-navbar .navbar-nav .nav-link{
+    padding-right:.5rem;
+    padding-left:.5rem;
+    color:#347B98
+}
+.bd-navbar .navbar-nav .nav-link.active,.bd-navbar .navbar-nav .nav-link:hover{
+    color:#F0F7D4;
+    background-color:transparent
+}
+.bd-navbar .navbar-nav .nav-link.active{
+    font-weight:500;
+    color: #092834;
+    border-bottom: #347B98 solid 1px;
+}
+.nav-signout-icon{
+    position:absolute;
+    right: 20px;
+    font-size: 10pt
+}
+.footer{
+    box-shadow:0 .5rem 1rem rgb(0,255,0,.05),inset 0 -1px 0 rgba(0,255,0,.1)
+}
+.bd-link-profile:hover{
+    color: #000
+}
+
+@media (max-width: 575.98px) {
+
+}
+@media (min-width:768px){
+    .bd-navbar{
+        position:sticky;
+        top:0;
+        z-index:1;
+
+    }
+    .sidebar-shortcut{
+        display: none!important
+    }
+}
+@media (max-width:767px){
+    .bd-nav-signout{
+        font-size: 8pt
+    }
+    .sidebar-shortcut{
+        position: fixed;
+        bottom: 30px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        box-shadow:0 .5rem 1rem rgb(178, 215, 50,.2),inset 0 -1px 0 rgba(178, 215, 50, .5)
+    }
+}
+@media (min-width:1200px){
+    .nav-signout-icon{
+        left: 350px;
+    }
+}
+/*FOOTER
+---------------------*/
+.footer {
+  /*position: absolute;*/
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+}  
