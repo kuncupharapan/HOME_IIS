@@ -1,0 +1,151 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 22, 2018, 3:42:18 PM
+    Author     : JOHNY
+*/
+
+.bd-sidebar{
+    -ms-flex-order:0;
+    order:0;
+}
+
+.bd-links{
+    padding-top:1rem;
+    padding-bottom:1rem;
+    margin-right:-15px;
+    margin-left:-15px
+}
+
+.bd-sidenav{
+    display:block
+}
+.bd-toc-link{
+    display:block;
+    padding:.25rem 1.5rem;
+    font-weight:500;
+    color:rgba(52, 123, 152, 1);
+    font-size: 11pt
+}
+.bd-toc-link:hover{
+    color:rgba(0,0,0,.85);
+    text-decoration:none
+}
+.bd-toc-link.active{
+    color:rgba(9, 40, 52, 1);
+    border-right: #FE2712 solid 4px
+}
+.bd-toc-item.active{
+    margin-bottom:0
+}
+.bd-toc-item.active:not(:first-child){
+    margin-top:1rem
+}
+.bd-toc-item.active>.bd-toc-link{
+    color:rgba(0,0,0,.85)
+}
+.bd-toc-item.active>.bd-toc-link:hover{
+    background-color:transparent
+}
+.bd-toc-item.active>.bd-sidenav{
+    display:block
+}
+.bd-sidebar .nav>li>a{
+    display:block;
+    padding:.25rem 1.5rem;
+    font-size:10pt;
+    color:rgba(0,0,0,.65)
+}
+.bd-sidebar .nav>li>a:hover{
+    color:rgba(0,0,0,.85);
+    text-decoration:none;
+    background-color:transparent
+}
+.bd-sidebar .nav>.active:hover>a,.bd-sidebar .nav>.active>a{
+    font-weight:500;
+    color:rgba(0,0,0,.85);
+    background-color:transparent
+}
+.bd-notif-icon{
+    width: 60px;
+    height: 59px;
+}
+.bd-notif-title{
+    font-size: 12pt;
+}
+.bd-notif-body{
+    font-size: 10pt;
+}
+.bd-lnav-photo{
+    width: 70px;
+    height: 70px
+}
+.bd-profile{
+    font-size: 10pt;
+    margin-left: 2px
+}
+
+.row-stripped:nth-of-type(odd){
+    background-color: #D4E4F7;
+    color: #092834;
+}
+.row-stripped:nth-of-type(even){
+    background-color: #E4F1F6;
+    color: #092834;
+}
+.bd-tasklist{
+    min-width:calc(100% - 100px);
+}
+.bd-tasktime{
+    min-width: 130px;
+}
+@media (min-width:768px){
+    .bd-sidebar{
+        border-right:none;
+        overflow: hidden
+    }
+    .taskfont{
+        font-size: 12pt;
+    }
+    @supports ((position:-webkit-sticky) or (position:sticky)){
+        .bd-sidebar{
+            position:-webkit-sticky;
+            position:sticky;
+            top:4rem;
+            z-index:1000;
+            height:calc(100vh - 9rem)
+        }
+    }
+}
+@media (max-width:576px){
+    .bd-tasklist{
+        font-size: 9pt;
+    }
+    .bd-tasktime{
+        min-width: 100px;
+    }
+}
+@media (min-width:1200px){
+    .bd-sidebar{
+        -ms-flex:0 1 320px;
+        flex:0 1 320px
+    }
+
+
+}
+@media (min-width:768px){
+    @supports ((position:-webkit-sticky) or (position:sticky)){
+        .bd-links{
+            max-height:calc(100vh - 9rem);
+            overflow-y:auto
+        }
+    }
+}
+@media (min-width:768px){
+    .bd-links{
+        display:block!important
+    }
+}
