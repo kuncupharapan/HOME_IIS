@@ -16,7 +16,7 @@
                             <span class="col">
                                 <h3>Engineering Management</h3>
                                 <h6>Project, Knowledge and Performance Control</h6>
-                                <h5><a href="http://localhost/hankam256/index.php/engineeringmanagement_home" class="btn btn-success btn-sm" tabindex="-1" role="button">Open</a></h5>
+                                <h5><a href="http://localhost/HOME_IIS/index.php/engineeringmanagement_home" class="btn btn-success btn-sm" tabindex="-1" role="button">Open</a></h5>
                             </span>
                         </div>
 
@@ -32,6 +32,34 @@
                             <span class="col">
                                 <h3>Inventory & Asset Management</h3>
                                 <h6>Tracking Asset, Internal Supplies Control & Reporting</h6>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row flex-xl-nowrap mt-0 bg-white rounded box-shadow mb-3">
+                    <div class="col border border-t1bluedark fa-6x mr-1">
+                        <div class="row mt-3 ml-2 mb-2">
+                            <span class="col-4 col-sm-4 col-md-3 col-xl-2 fa-layers fa-fw" style="color:#356F13">
+                                <i class="fas fa-chart-pie" data-fa-transform="grow-2" style="color: B0DF95"></i>
+                                <i class="fas fa-user-cog"  data-fa-transform="shrink-6 down-1"></i>
+                            </span>
+                            <span class="col">
+                                <h3>SKP Client</h3>
+                                <h6>SKP Management, SKP Gateway</h6>
+                                <h5><a href="http://localhost/HOME_IIS/index.php/skpclient_home" class="btn btn-success btn-sm" tabindex="-1" role="button">Open</a></h5>
+                            </span>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-xl-6 border border-t1bluedark fa-6x mr-1">
+                        <div class="row mt-3 ml-2 mb-2">
+                            <span class="col-4 col-sm-4 col-md-3 col-xl-2 fa-layers fa-fw" style="color:#E94B3C">
+                                <i class="fas fa-circle" data-fa-transform="grow-2"></i>
+                            </span>
+                            <span class="col">
+                                <h3>Others</h3>
+                                <h6>  </h6>
                             </span>
                         </div>
 
