@@ -47,7 +47,7 @@ class Engman_projectsetting_projectlist extends CI_Model {
             if (isset($row)) {
                 $this->globalsetting = $row;    
             } else {
-                show_error("Konfigurai aplikasi tidak benar, seilahkan hubungi administrator", 1, $heading = 'An Error Was Encountered');
+                show_error("Konfigurasi aplikasi tidak benar, seilahkan hubungi administrator", 1, $heading = 'Terjadi Galat');
             }
         }
     }
