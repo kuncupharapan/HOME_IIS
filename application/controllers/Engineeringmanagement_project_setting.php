@@ -191,9 +191,15 @@ class Engineeringmanagement_project_setting extends CI_Controller {
                     $this->load->view("templates/engineeringmanagement_mainfooter", $datafooter);
                 }
             } else if ($info_group == 4) { //produk kegiatan/deliverables
-                $this->load->view("templates/engineeringmanagement_mainheader", $dataheader);
-                $this->load->view("pages/engineeringmanagement_project_setting_deliverables", $databody);
-                $this->load->view("templates/engineeringmanagement_mainfooter", $datafooter);
+                if (!is_null($action)) {
+                    
+                } else {
+                    $this->load->model("engman_projectsetting_projectlist");
+                    $datafooter["popover"] = 1;
+                    $this->load->view("templates/engineeringmanagement_mainheader", $dataheader);
+                    $this->load->view("pages/engineeringmanagement_project_setting_deliverables", $databody);
+                    $this->load->view("templates/engineeringmanagement_mainfooter", $datafooter);
+                }
             }
         } else {
             $this->load->view("templates/engineeringmanagement_mainheader", $dataheader);
