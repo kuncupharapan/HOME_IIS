@@ -25,8 +25,8 @@
                         </div>
                         <!-- Jumbo End, Body Start -->
                         <div class="d-flex border-bottom border-eng-primary-2 my-3">
-                            <span class="font-italic font-weight-bold text-capitalize">kegiatan program &nbsp;</span>
-                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="help" data-content="Jika terdapat lebih dari satu peroject yang digabungkan dalam satu WBS maka setiap project dalam WBS tersebut disebut dengan kegiatan. hal ini dimaksudkan untuk mempermudah mengelola history masing-masing project. Dalam satu program harus terdapat satu kegiatan atau lebih."><i class="far fa-question-circle"></i></a>
+                            <span class="font-italic font-weight-bold text-capitalize">Produk Kegiatan/Deliverables &nbsp;</span>
+                            <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" title="Bantuan" data-content="Pada bagian ini merupakan pengaturan untuk produk/luaran masing-masing kegiatan dalam program. Produk yang dimaksudkan disini adalah jenis produk yang merupakan kebutuhan dari project sponsor/ end-user secara langsung atau yang terkait dengan milestone kegiatan. Deliverable disini tidak termasuk jenis administrasi proyek seperti berkas perekayasa."><i class="far fa-question-circle"></i></a>
                         </div>
                         <div class="d-flex mt-1 float-right"><span class="text-eng-primary-1"><a href="javascript:void();" role="button" id="modalAddProject"><i class="fas fa-plus-square fa-lg"></i></a></span></div>
                         <table class="table">
@@ -34,9 +34,10 @@
                                 <tr>
                                     <th scope="col">No.</th>
                                     <th scope="col">Nama Kegiatan</th>
-                                    <th scope="col">Produk/Layanan</th>
-                                    <th scope="col">Last Update</th>
-                                    <th scope="col">Updated By</th>
+                                    <th scope="col">Produk/Luaran</th>
+                                    <th scope="col">Penerima</th>
+                                    <th scope="col">Qty</th>
+                                    <th scope="col">Tanggal Penyerahan</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -44,9 +45,10 @@
                                 <tr>
                                     <th scope="row">1</th>
                                     <td>RB. Kapal Selam Mini</td>
-                                    <td>Purwarupa</td>
-                                    <td>21-04-2018 00:00:00 wib</td>
-                                    <td>Administrator</td>
+                                    <td>Prototipe Kaselmin</td>
+                                    <td>Laksamana Abdul Ghofur, M.Si.</td>
+                                    <td>1 Prototipe</td>
+                                    <td>12-12-2019</td>
                                     <td id="21">
                                         <a href="javascript:void(0);" id="modalView"><i class="fas fa-eye fa-xs"></i></a>&nbsp;
                                         <a href="javascript:void(0);" id="modalDelete"><i class="fas fa-trash fa-xs"></i></a>&nbsp;
