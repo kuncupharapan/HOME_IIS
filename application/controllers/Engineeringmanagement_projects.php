@@ -32,7 +32,7 @@ class Engineeringmanagement_projects extends CI_Controller {
 
     public function project_info($project = null) {
         if (is_null($project)) {
-            show_error("Maaf, Halaman yang anda inginkan tidak tersedia", 1, $heading = 'An Error Was Encountered');
+            show_error("Maaf, Halaman yang anda inginkan tidak tersedia", 1, $heading = 'Terjadi Galat');
             echo("halaman yang anda inginkan tidak tersedia");
         } else {
             $dataheader["scss"] = "engineeringmanagement_projects";
