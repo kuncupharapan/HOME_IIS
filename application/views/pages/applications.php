@@ -45,8 +45,8 @@
                                 <i class="fas fa-user-cog"  data-fa-transform="shrink-6 down-1"></i>
                             </span>
                             <span class="col">
-                                <h3>SKP Client</h3>
-                                <h6>SKP Management, SKP Gateway</h6>
+                                <h3>HRM</h3>
+                                <h6>HR Management, Competency Management, SKP Management, SKP Gateway</h6>
                                 <h5><a href="http://localhost/HOME_IIS/index.php/skpclient_home" class="btn btn-success btn-sm" tabindex="-1" role="button">Open</a></h5>
                             </span>
                         </div>
