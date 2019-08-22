@@ -26,7 +26,6 @@ class Personal_page extends CI_Controller {
         $dataheader['activemenu'] = "pp";
         $data = "";
         $this->load->view("templates/mainheader", $dataheader);
-
         $this->load->view("pages/personal_page");
         $this->load->view("templates/mainfooter");
     }
