@@ -18,11 +18,11 @@ class information_board extends CI_Controller {
         parent::__construct();
     }
 
-    public function index($tab = null, $id = null) {
-        if (is_null($tab)) {
-            $this->agenda();
+    public function index($tab = null, $attr = null) {
+        if (is_null($tab) || $tab == 0) {
+            $this->agenda($attr);
         } else if ($tab == 1) {
-            $this->agenda_detail($id);
+            $this->agenda_detail($attr);
         } else if ($tab == 2) {
             $this->announcement();
         } else if ($tab == 3) {
@@ -31,18 +31,26 @@ class information_board extends CI_Controller {
     }
 
     private function agenda($date = null) {
+        $ajax = false;
         if ($date == null) {
-            $date = date("Y-m-d");
+            $date = date("d-m-Y");
             //echo $date;
+        } else {
+            $ajax = true;
         }
         $this->load->model("infoboard_agenda");
         $this->infoboard_agenda->get_agenda($date);
+        $this->infoboard_agenda->get_news_ticker();
         $dataheader = array('infoboard' => 'infoboard');
         $dataagenda = array('agenda' => $this->infoboard_agenda->agenda);
-        $datafooter = array();
-        $this->load->view("templates/informationboard_header", $dataheader);
-        $this->load->view("pages/agenda_body", $dataagenda);
-        $this->load->view("templates/informationboard_footer", $datafooter);
+        $datafooter = array('newsticker' => $this->infoboard_agenda->newsticker);
+        if ($ajax) {
+            $this->load->view("pages/agenda_body_ajax", $dataagenda);
+        } else {
+            $this->load->view("templates/informationboard_header", $dataheader);
+            $this->load->view("pages/agenda_body", $dataagenda);
+            $this->load->view("templates/informationboard_footer", $datafooter);
+        }
     }
 
     private function agenda_detail($id = null) {
@@ -55,6 +63,7 @@ class information_board extends CI_Controller {
             $this->err_message(2);
         }
     }
+    
 
     public function err_message($errCode = null) {
         if ($errCode == 1) {
