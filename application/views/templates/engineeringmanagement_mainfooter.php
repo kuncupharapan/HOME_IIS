@@ -47,7 +47,7 @@ if (isset($wordeditor)) {
 }
 if (isset($datepicker)) {
     //echo "<script type=\"text/javascript\" src=\"" . base_url() . "js/zebra_datepicker.min.js\"></script>";
-    echo "<script type=\"text/javascript\" src=\"" . base_url() . "js/moment.js\"></script>";
+    echo "<script type=\"text/javascript\" src=\"" . base_url() . "bootstrap/js/moment.js\"></script>";
     echo "<script type=\"text/javascript\" src=\"" . base_url() . "bootstrap/js/bootstrap-datetimepicker.js\"></script>";
 }
 if (isset($autocomplete)) {
@@ -206,7 +206,7 @@ if (isset($subprojectform)) {
             $("#modalTitle").text("Menambah Kegiatan Pada Program");
             $("#modalBody").empty();
             $("#modalFooter").empty();
-            $('#modalBody').append('<form id="addProjectForm"><div class="form-group"><label for="subProjectName">Nama Kegiatan</label><input type="subproject" class="form-control" id="subProjectName" placeholder="Nama Kegiatan"></div><div class="form-group"><label for="projectProduct">Produk/Layanan</label><select class="form-control" id="projectProduct" name="projectproduct">' + productOption + '</select></div><div class="form-group"><label for="projectType">Deskripsi Kegiatan</label><textarea class="form-control" id="projectType" name="projecttype" rows="3" placeholder="Jelaskan lebih rinci kegiatan yang dilakukan"></textarea></div><div class="form-group"><label for="projectSponsor">Sponsor/Pengguna Produk/Layanan</label><select class="form-control" id="projectProduct" name="projectSponsor">' + projectSponsor + '</select></div><div class="form-group"><label for="projectSponsorInfo">Informasi Tambahan Sponsor/Pengguna</label><textarea class="form-control" id="productDescription" name="projectSponsorInfo" rows="3" placeholder="Tambahkan informasi tentang sponsor/pengguna yang lebih rinci"></textarea></div></form>');
+            $('#modalBody').append('<form id="addProjectForm"><div class="form-group"><label for="subProjectName">Nama Kegiatan</label><input type="text" name="subproject" class="form-control" id="subProjectName" placeholder="Nama Kegiatan"></div><div class="form-group"><label for="projectProduct">Produk/Layanan</label><select class="form-control" id="projectProduct" name="projectproduct">' + productOption + '</select></div><div class="form-group"><label for="projectType">Deskripsi Kegiatan</label><textarea class="form-control" id="projectType" name="projecttype" rows="3" placeholder="Jelaskan lebih rinci kegiatan yang dilakukan"></textarea></div><div class="form-group"><label for="projectSponsor">Sponsor/Pengguna Produk/Layanan</label><select class="form-control" id="projectProduct" name="projectSponsor">' + projectSponsor + '</select></div><div class="form-group"><label for="projectSponsorInfo">Informasi Tambahan Sponsor/Pengguna</label><textarea class="form-control" id="productDescription" name="projectSponsorInfo" rows="3" placeholder="Tambahkan informasi tentang sponsor/pengguna yang lebih rinci"></textarea></div></form>');
             $('#modalFooter').append('<button type="button" class="btn btn - secondary" data-dismiss="modal">Batal</button><button type = "button" class = "btn btn-primary"> Simpan </button>');
             $("#customizeModal").modal('show')
         });
