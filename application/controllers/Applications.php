@@ -16,11 +16,11 @@ class Applications extends CI_Controller {
 
     public function index($action = null) {
         if (is_null($action)) {
-            $this->view();
+            $this->applist();
         }
     }
 
-    private function view() {
+    private function applist() {
         $dataheader['scss'] = "applications";
         $dataheader['main'] = "main";
         $dataheader["activemenu"] = "app";
