@@ -68,13 +68,13 @@
                             echo '<div class="card-group">';
                         }
                         echo '<div class="card border-dark mb-3" style="max-width: 14rem;">';
-                        echo '<div class="text-center">';
-                        echo '<div class="card-header">'.$person['name'].'</div>';
-                        echo '</div>';
+                        echo '<div class="card-header text-center">'.$person['name'].'</div>';
+                        echo '<div class="text-center mt-1">';
                         echo '<img src="'. base_url() .'images/no-image.jpg" class=" rounded-circle" alt="" width="48" height="48">';
+                        echo '</div>';
                         echo '<div class="card-body text-dark">';
-                        echo '<h5 class="card-title">Dark card title</h5>';
-                        echo '<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card content.</p>';
+                        echo '<h5 class="card-title"></h5>';
+                        echo '<p class="card-text">'.$person['notes'].'</p>';
                         echo '</div>';
                         echo '</div>';
                         $col++;
