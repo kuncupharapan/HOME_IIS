@@ -1,3 +1,17 @@
+<div class="TickerNews default_theme" id="news">
+    <div class="ti_wrapper">
+        <div class="ti_slide">
+            <div class="ti_content">
+                <?php
+                foreach ($newsticker as $key => $news) {
+                    $timestamp = date("h:i", strtotime($news['createdtimestamp']));
+                    echo '<div class="ti_news"><a href="javascript:void(0);">' . $timestamp . '&nbsp;' . $news['news'] . '</div>';
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="customizeModal" tabindex="-1" role="dialog" aria-labelledby="customizeModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -20,7 +34,7 @@
 </div>
 <footer class="footer">
     <div class="d-flex justify-content-center p-2">
-        <span class="svgfooterbg text-t1greenmed">Tim Pengembang SI-TI PTIPK &copy; 2018-2019</span>
+        <span class="svgfooterbg text-dark">Developed by Information Technology Division - PTIPK &copy; 2018-2019</span>
     </div>
 </footer>
 </body>
@@ -29,11 +43,19 @@
 <script type="text/javascript" src="<?php echo base_url() ?>bootstrap/js/bootstrap.bundle.js"></script>
 <script type="text/javascrip" src="<?php echo base_url() ?>js/jquery-ui/jquery-ui.min.js"></script>
 <script src="<?php echo base_url() ?>js/pg-calendar/dist/js/pignose.calendar.full.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/news-ticker/jquery.tickerNews.js"></script>
 <script type="text/javascript">
     $(function () {
-        $('input.calendar').pignoseCalendar({
-            format: 'DD-MM-YYYY'
-        });
+        $('input.calendar').pignoseCalendar(
+                {
+                    format: 'DD-MM-YYYY',
+                    select: function (date, context) {
+                        //alert(date[0], date[1]);
+                        var agendadate = $("#text-calendar").val();
+                        $("#ajaxcontainer").load("<?= site_url('information_board/index/0/') ?>" + agendadate);
+                        ;
+                    }
+                });
     });
     $("#infoboardsidemenu").append("<div class=\"p-2 sidemenu active\" id=\"agenda\><a href=\"#\"><i class=\"far fa-calendar-alt fa-fw\"></i></a></div>");
     $("#infoboardsidemenu").append("<div class=\"p-2 sidemenu \" id=\"agenda\><a href=\"#\"><i class=\"fas fa-bullhorn fa-fw\"></i></a></div>");
@@ -65,21 +87,14 @@
     $(document).ajaxStart(function () {
         $("#modalBody").append("<div id=\"ajaxEvent\">Loading ...</div>");
     });
-    $('#modalView').click(function () {
-        var agendaId = $(this).parent().attr('id');
+    function agendaonClickHandler(agendaId) {
         $("#modalTitle").text("Informasi Agenda Kegiatan");
         $("#modalBody").empty();
         $("#modalFooter").empty();
-        /*
-        $.ajax({
-            url: "<?= site_url('information_board/index/1/1') ?>",
-            xhrFields: {
-                withCredentials: true
-            }
-        });
-        */
-        $("#modalBody").load("<?= site_url('information_board/index/1/') ?>"+ agendaId)
+        $("#modalBody").load("<?= site_url('information_board/index/1/') ?>" + agendaId);
         $('#customizeModal').modal('show')
-    });
+    }
+    $("#news").newsTicker();
+
 </script>
 </html>
