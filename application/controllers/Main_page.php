@@ -23,8 +23,8 @@ class Main_page extends CI_Controller {
         public function index()
         {
             if(is_null($_SESSION['user'])){
-                //$this->login();
-                $this->home();
+                $this->login();
+                //$this->home();
             } else {
                 $this->home();
             }
