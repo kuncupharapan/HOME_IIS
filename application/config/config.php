@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set('Asia/Jakarta');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -24,6 +24,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = '';
+$allowed_domains = array('localhost/HOME_IIS', 'markazptipk.bppt.go.id', '10.10.199.142/HOME_IIS');
+$default_domain  = 'localhost/HOME_IIS';
+if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE))
+{
+        $domain = $_SERVER['HTTP_HOST'];
+}
+else
+{
+        $domain = $default_domain;
+}
+
+if ( ! empty($_SERVER['HTTPS']))
+{
+        $config['base_url'] = 'https://'.$domain;
+}
+else
+{
+        $config['base_url'] = 'http://'.$domain;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -324,7 +343,7 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] =  hex2bin('49eb7d14ab2eb49992fa8d78706cde03');
 
 /*
 |--------------------------------------------------------------------------
@@ -521,3 +540,8 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*Custom Config*/
+$config['server_envy'] = 1;
+$config['server_host'] = '127.0.0.1';
+$config['institutioncode'] = 3;
