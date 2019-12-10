@@ -16,7 +16,7 @@
     </head>
     <body>
         <header class="d-flex bd-highligh displayheader">
-            <div class="pr-0 pl-3 pt-2 flex-shrink-1 bd-highlight"><i class="fas fa-podcast fa-2x"></i></div>
-            <div class="p-0 w-100 bd-highlight"> <p class="text-center" style="font-weight: bold; font-size: 20pt">Media Informasi Pusat Teknologi Industri Pertahanan & Keamanan</p></div>
+            <div class="pr-0 pl-3 pt-2 flex-shrink-1 bd-highlight"><a style="color: #000" href="<?php echo site_url() ?>/infoboard_admin"><i class="fas fa-podcast fa-2x"></i></a></div>
+            <div class="p-0 w-100 bd-highlight"> <span class="d-flex justify-content-center text-center pb-0 text-white-50" style="font-weight: bold; font-size: 1.5em">HANKAM INFOCON&trade;</span><span class="d-flex justify-content-center pb-1 pt-0 text-dark-50" style="font-size: 0.8em; font-weight: bolder">PTIPK Information & Communication Network</span></div>
         </header>
 
