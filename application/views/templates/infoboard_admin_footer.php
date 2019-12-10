@@ -34,6 +34,7 @@
 <script type="text/javascript" src="<?php echo base_url() ?>bootstrap/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/typeahead/typeahead.bundle.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url() ?>js/tagsinput/bootstrap-tagsinput.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url() ?>js/jquery.form.min.js"></script>
 <script type="text/javascript">
 <?php
 echo "var agendaCategories='";
@@ -50,7 +51,6 @@ echo "';";
                         //alert(date[0], date[1]);
                         var agendadate = $("#text-calendar").val();
                         $("#ajaxcontainer").load("<?= site_url('infoboard_admin/index/0/') ?>" + agendadate);
-                        ;
                     }
                 });
     });
@@ -87,7 +87,9 @@ echo "';";
     $(document).ajaxStop(function () {
         $("#ajaxEvent").hide();
     });
-    function agendaonClickHandler(agendaId) {
+    function agendaonClickHandler(row) {
+        $("#responseMessage").empty().hide();
+        var agendaId = $('#view' + row).parent().attr('id');
         $("#modalTitle").text("Informasi Agenda Kegiatan");
         $("#modalBody").empty();
         $("#modalFooter").empty();
@@ -95,6 +97,7 @@ echo "';";
         $('#customizeModal').modal('show')
     }
     function addAgendaClickHandler() {
+        $("#responseMessage").empty().hide();
         $("#modalTitle").text("Form Penambahan Agenda Kegiatan");
         $("#modalBody").empty();
         $("#modalFooter").empty();
@@ -113,21 +116,75 @@ echo "';";
             $('#responseMessage').show('slow');
             var posting = $.post("<?= site_url('infoboard_admin/index/3') ?>", $("#addAgendaForm").serialize());
             posting.done(function (data) {
+                var dateStart = $('#datetimepicker1').val();
+                $("#ajaxcontainer").load("<?= site_url('infoboard_admin/index/0/') ?>" + dateStart);
                 $("#responseMessage").empty().text(data.responsemessage);
             });
         });
     }
+    function formatDate(date, timedate) {
+        var date = new Date(date);
+        var result = "";
+        if (timedate == 1) {
+            result = date.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
+        } else {
+            result = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+        }
+        return result;
+    }
+    function editAgendaClickHandler(row) {
+        $("#responseMessage").empty().hide();
+        var agendaId = $('#edit' + row).parent().attr('id');
+        $.getJSON("<?= site_url('infoboard_admin/index/8/') ?>" + agendaId, function () {
+        }).done(function (data) {
+            var startdate = data.agenda.startdate.substring(8, 10) + '-' + data.agenda.startdate.substring(5, 7) + '-' + data.agenda.startdate.substring(0, 4);
+            var starttime = formatDate(data.agenda.startdate + ' ' + data.agenda.starttime, 1);
+            var enddate = data.agenda.enddate.substring(8, 10) + '-' + data.agenda.enddate.substring(5, 7) + '-' + data.agenda.enddate.substring(0, 4);
+            var endtime = formatDate(data.agenda.enddate + ' ' + data.agenda.endtime, 1);
+
+            $("#modalTitle").text("Form Pembaruan Agenda Kegiatan");
+            $("#modalBody").empty();
+            $("#modalFooter").empty();
+            $('#modalBody').append('<form id="editAgendaForm"><div class="form-group"><label for="agendaTitle">Judul Agenda</label><input type="text" name="agendaTitle" class="form-control" id="agendaTitle" placeholder="judul agenda" value="' + data.agenda.title + '"></div><div class="form-group"><label for="dateStart">Tanggal Mulai</label><div class="input-group date" ><input type="text" name="dateStart" id="datetimepicker1" class="form-control" value="' + startdate + '"/><div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div></div></div><div class="form-group"><label for="dateStart">Waktu Mulai</label><div class="input-group date" ><input type="text" id="datetimepicker2" name="timeStart" class="form-control" value="' + starttime + '"/><div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div></div></div><label for="dateStart">Tanggal Selesai</label><div class="input-group date" ><input type="text" id="datetimepicker3" name="dateEnd" class="form-control" value="' + enddate + '"/><div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div></div></div><label for="datepicker4">Waktu Selesai</label><div class="input-group date" ><input type="text" id="datetimepicker4" name="timeEnd" class="form-control" value="' + endtime + '"/><div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker"><div class="input-group-text"><i class="fa fa-calendar"></i></div></div></div></div><div class="form-group"><label for="agendaCategory">Kategori Agenda</label><select class="form-control" id="agendaCategory" name="agendaCategory">' + agendaCategories + '</select></div><div class="form-group"><label for="agendaPriority">Prioritas Agenda</label><select class="form-control" id="agendaPriority" name="agendaPriority"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div><div class="form-group"><label for="location">Lokasi Kegiatan</label><input type="text" class="form-control" id="location" name="location" placeholder="lokasi kegiatan" value="' + data.agenda.location + '"></div><div class="form-group"><label for="projectType">Keterangan Agenda</label><textarea class="form-control" id="agendaDesc" name="agendaDesc" rows="3" placeholder="Jelaskan dengan rinci agenda kegiatan yang akan dilaksanakan">' + data.agenda.agendadesc + '</textarea></div><input type="hidden" name="updateAgenda" id="updateAgenda" value="1"></form>');
+            $('#agendaCategory').val(data.agenda.categoryid);
+            $('#agendaPriority').val(data.agenda.agendapriority);
+            $('#modalFooter').append('<button type="button" class="btn btn - secondary" data-dismiss="modal">Batal</button><button type = "button" id="buttonSubmit" class = "btn btn-primary" data-toggle="collapse" data-target="#responseMessage"> Simpan </button>');
+            $('#responseMessage').empty().hide();
+            $("#customizeModal").modal('show');
+            $('#datetimepicker1').datetimepicker({format: "DD-MM-YYYY"});
+            $('#datetimepicker2').datetimepicker({format: "LT"});
+            $('#datetimepicker3').datetimepicker({format: "DD-MM-YYYY"});
+            $('#datetimepicker4').datetimepicker({format: "LT"});
+            $("#buttonSubmit").click(function () {
+                //var postData = $("#editProjectForm").serialize();
+                //$("#projectSponsorInfo").text(postData);
+                $('#customizeModal').animate({scrollTop: 0}, 100);
+                $('#responseMessage').show('slow');
+                var posting = $.post("<?= site_url('infoboard_admin/index/8/') ?>" + agendaId, $("#editAgendaForm").serialize());
+                posting.done(function (data) {
+                    var dateStart = $('#datetimepicker1').val();
+                    $("#ajaxcontainer").load("<?= site_url('infoboard_admin/index/0/') ?>" + dateStart);
+                    $("#responseMessage").empty().text(data.responsemessage);
+                });
+                posting.fail(function (jqXHR, textStatus) {
+                    console.log(textStatus);
+                });
+            });
+        })
+
+    }
     function addPIC(id) {
+        $("#responseMessage").empty().hide();
         $("#modalTitle").text("Form Penambahan PIC Kegiatan");
         $("#modalBody").empty();
         $("#modalFooter").empty();
         var agendaId = $('#' + id).parent().attr('id');
         var agendaTitle = $("td#title" + agendaId).text();
-        $('#modalBody').append('<div class="row"><div class="col">Judul Agenda</div><div class="col">: ' + agendaTitle + '</div><div class="w-100"></div><div class="col">Personel</div><div class="col">: &nbsp;</div></div>');
+        $('#modalBody').empty().append('<div class="row"><div class="col">Judul Agenda</div><div class="col">: ' + agendaTitle + '</div><div class="w-100"></div><div class="col">Personel</div><div class="col">: &nbsp;</div></div>');
         $.getJSON("<?= site_url('infoboard_admin/index/4/') ?>" + agendaId, function (data) {
             var items = [];
             $('#modalBody').append('<input type="text" id="taglist" data-role="tagsinput" />');
-            $('#modalFooter').append('<button type="button" class="btn btn - secondary" data-dismiss="modal">Tutup</button>');
+            $('#modalFooter').empty().append('<button type="button" class="btn btn - secondary" data-dismiss="modal">Tutup</button>');
             $("#customizeModal").modal('show');
             var employees = data.employees;
             var empl = new Bloodhound({
@@ -166,6 +223,9 @@ echo "';";
                                 if (msg.responsecode != 1) {
                                     elt.tagsinput('remove', tag, {preventPost: true});
                                 }
+                            })
+                            .fail(function (jqXHR, textStatus) {
+                                console.log(textStatus);
                             });
                 }
 
@@ -185,9 +245,129 @@ echo "';";
                                 if (msg.responsecode != 1) {
                                     elt.tagsinput('add', tag, {preventPost: true});
                                 }
+                            })
+                            .fail(function (jqXHR, textStatus) {
+                                console.log(textStatus);
                             });
                 }
             });
+        });
+    }
+    function addNotes(row) {
+        $("#responseMessage").empty().hide();
+        $("#modalTitle").text("Menambah Catatan Untuk PIC");
+        var agendaId = $('#notes' + row).parent().attr('id');
+        $.getJSON("<?= site_url('infoboard_admin/index/9/') ?>" + agendaId, function () {
+        }).done(function (data) {
+            var formAtr = '';
+            var i = 0;
+            $.each(data.pic, function (key, val) {
+                var notes = val.notes == null ? '' : val.notes;
+                formAtr += '<div class="form-group" style="display:none"><label for="picid' + key + '"></label><input type="text" name="picid' + key + '" class="form-control" id="picid' + key + '" value="' + val.picid + '"></div><div class="form-group"><label for="notes' + key + '">' + val.name + '</label><textarea class="form-control" id="notes' + key + '" name="notes' + key + '" rows="3" placeholder="Catatan atau peran untuk ' + val.name + '">' + notes + '</textarea></div>';
+                i++;
+            });
+            if (i > 0) {
+                $('#modalBody').empty().append('<form id="addPersonNotes">' + formAtr + '<input type="hidden" name="total" id="total" value="' + i + '"><input type="hidden" name="addNotes" id="addNotes" value="1"></form>');
+                $('#modalFooter').empty().append('<button type="button" class="btn btn - secondary" data-dismiss="modal">Batal</button><button type = "button" id="buttonSubmit" class = "btn btn-primary" data-toggle="collapse" data-target="#responseMessage"> Simpan </button>');
+            } else {
+                $('#modalBody').empty().append('Belum ada personil yang ditunjuk untuk agenda ini');
+            }
+
+            $("#buttonSubmit").click(function () {
+                $('#customizeModal').animate({scrollTop: 0}, 100);
+                $('#responseMessage').show('slow');
+                var posting = $.post("<?= site_url('infoboard_admin/index/9/') ?>" + agendaId, $("#addPersonNotes").serialize());
+                posting.done(function (data) {
+                    console.log(data);
+                    $("#responseMessage").empty().text(data.responsemessage);
+                });
+            });
+        });
+        $("#customizeModal").modal('show');
+    }
+    function rma(row) {
+        $("#responseMessage").empty().hide();
+        $("#modalTitle").text("Perhatian: Anda akan menghapus data agenda");
+        $('#modalBody').empty().append('<span class="d-flex justify-content-center">Apakah anda yakin akan menghapus kegiatan ini?</span>');
+        $('#modalFooter').empty().append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button><button type="button" class="btn btn-primary confirmation">Hapus</button>');
+        $("#customizeModal").modal('show');
+        $(".confirmation").click(function () {
+            var agendaId = $('#rm' + row).parent().attr('id');
+            $.getJSON("<?= site_url('infoboard_admin/index/7/') ?>" + agendaId, function () {
+            }).done(function (data) {
+                $('#responseMessage').text(data.responsemessage);
+                $('#responseMessage').show();
+                $('#modalBody').empty();
+                $('#modalFooter').empty().append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>');
+                if (data.responsecode == '1') {
+                    $('#row' + row).remove();
+                }
+            })
+        })
+    }
+    function upload(row) {
+        var agendaId = $('#upload' + row).parent().attr('id');
+        $('#responseMessage').empty().hide();
+        $('#modalTitle').text('Unggah Berkas');
+        $('#modalBody').empty().append('<form id="uploadForm" name="uploadFile" method="post" enctype="multipart/form-data"><input type="file" id="uploadImage" name="uploadImage" /></form><div id="progress" style="padding: 0"><div id="bar"></div><div id="percent"></div></div>');
+        $('#modalFooter').empty().append('<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>');
+        $("#customizeModal").modal('show');
+        $("input[type='file']").change(function () {
+            // Check input( $( this ).val() ) for validity here
+            
+            $('#uploadForm').ajaxSubmit({
+                //target: "#responseMessage",
+                url: "<?= site_url('infoboard_admin/index/10/') ?>" + agendaId + "/2",
+                beforeSubmit: function () {
+                    /*
+                    $("#outputImage").hide();
+                    if ($("#uploadImage").val() == "") {
+                        $("#outputImage").show();
+                        $("#outputImage").html("<div class='error'>Choose a file to upload.</div>");
+                        return false;
+                    }
+                    */
+                    //$("#progress").css("display", "block");
+                    var percentValue = '0%';
+
+                    $('#bar').width(percentValue);
+                    //$('#bar').html(percentValue);
+                },
+                uploadProgress: function (event, position, total, percentComplete) {
+
+                    var percentValue = percentComplete + '%';
+                    $("#bar").animate({
+                        width: '' + percentValue + ''
+                    }, {
+                        duration: 5000,
+                        easing: "linear",
+                        step: function (x) {
+                            percentText = Math.round(x * 100 / percentComplete);
+                            $("#bar").text(percentText + "%");
+                            if (percentText == "100") {
+                                //$("#responseMessage").text("Berkas telah terunggah dengan sukses").show();
+                            }
+                        }
+                    });
+                },
+                error: function (response, status, e) {
+                    $("#responseMessage").text("Oops Terjadi kesalahan pada saat mengunggah berkas").show();
+                },
+
+                complete: function (xhr) {
+                    if (xhr.responseText && xhr.responseText != "error")
+                    {
+                        $("#responseMessage").text(xhr.responseText).show();
+                    } else {
+                        $("#responseMessage").text("Oops Terjadi kesalahan pada saat mengunggah berkas").show();
+                        //$("#outputImage").show();
+                        //$("#outputImage").html("<div class='error'>Problem in uploading file.</div>");
+                        //$("#progressBar").stop();
+                    }
+                }
+                
+            });
+            
         });
     }
 </script>
