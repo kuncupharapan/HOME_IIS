@@ -10,14 +10,17 @@
                         echo '<div class="container mt-5 mb-5">';
                         echo '<div class="row">';
                         echo '<div class="col-9">';
-                        echo '<h4 class="pb-4">AGENDA HARI INI</h4>';
+                        echo '<div class="container">'
+                        . '<div class="d-inline pt-0 pl-3 pr-1 bg-dark text-white hashtag">#</div><div class="d-inline tagline border border-white-50">agendahankam</div>&nbsp;&nbsp;'
+                        . '<div class="d-inline pt-0 pl-3 pr-1 bg-dark text-white hashtag">#</div><div class="d-inline tagline border border-white-50">' . str_replace('-', '.', $date) . '</div>'
+                        . '</div>';
                         echo '<ul class="timeline">';
                     }
                     echo '<li id="' . $val['id'] . '">'
-                    . '<h5>' . strtoupper($val['title']) . '<h5>'
-                    . '<h5>Pukul ' . $val['starttime'] . ' wib</h5>'
-                    . '<p>' . word_limiter($val['desc'], 20, ' ...') . '</p>'
-                    . '<a href = "javascript:void(0);" class = "badge badge-dark" onClick = "javascript:agendaonClickHandler(' . $val['id'] . ')" id = "modalView">BACA</a>'
+                    . '<h5 class="agendatitle">' . strtoupper($val['title']) . '<h5>'
+                    . '<h5 class="agendatime">Waktu: ' . $val['starttime'] . ' WIB</h5>'
+                    . '<p class="agendadesc">' . word_limiter($val['desc'], 20, ' ...') . '</p>'
+                    . '<a href="javascript:void(0);" class="badge badge-dark" onClick="javascript:agendaonClickHandler(' . $val['id'] . ')" id = "modalView">BACA</a>'
                     . '</li>';
                     $time = $starttime;
                 }
@@ -26,6 +29,18 @@
                 echo '</div>';
                 echo '</div>';
             } else {
-                echo 'tidak ada agenda kegiatan pada hari ini';
+                echo '<div class="container mt-5 mb-5">';
+                echo '<div class="row">';
+                echo '<div class="col-9">';
+                echo '<div class="container">'
+                . '<div class="d-inline pt-0 pl-3 pr-1 bg-dark text-white hashtag">#</div><div class="d-inline tagline border border-white-50">agendahankam</div>&nbsp;&nbsp;'
+                . '<div class="d-inline pt-0 pl-3 pr-1 bg-dark text-white hashtag">#</div><div class="d-inline tagline border border-white-50">' . str_replace('-', '.', $date) . '</div>'
+                . '</div>';
+                echo '<ul class="timeline">';
+                echo '<li>tidak ada agenda kegiatan pada hari ini</li>';
+                echo '</ul>';
+                echo '</div>';
+                echo '</div>';
+                echo '</div>';
             }
             ?>
